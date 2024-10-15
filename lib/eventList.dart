@@ -31,13 +31,14 @@ class EventList extends StatelessWidget {
 
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      // This code will run after the first frame (PageView.builder) is built
       if (pageController.hasClients != appState.isPageControllerUsed) {
+        print("HasClients: ${pageController.hasClients}");
+        print("isPageControllerUsed: ${appState.isPageControllerUsed}");
 
-        final curPage = pageController.page! - pageController.initialPage;
-        final pageDay = appState.today.add(Duration(days: curPage.toInt()));
-        final dif = curPage.toInt() + appState.pickedDay.difference(pageDay).inDays;
-        pageController.jumpToPage(pageController.page!.toInt() + dif);
+        // final curPage = pageController.page! - pageController.initialPage;
+        // final pageDay = appState.today.add(Duration(days: curPage.toInt()));
+        // final dif = curPage.toInt() + appState.pickedDay.difference(pageDay).inDays;
+        // pageController.jumpToPage(pageController.page!.toInt() + dif);
 
         appState.setPageControllerUsed(pageController.hasClients);
       }
@@ -81,6 +82,7 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Rebuilding eventList");
     final theme = Theme.of(context);
     final summaryStyle = theme.textTheme.bodyLarge!.copyWith(
         fontWeight: FontWeight.bold,

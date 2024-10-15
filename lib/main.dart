@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:urnik/dayPicker.dart';
 import 'package:urnik/eventList.dart';
+import 'package:urnik/news.dart';
 import 'package:urnik/parser.dart';
 import 'package:urnik/settings.dart';
 import 'package:urnik/weekPicker.dart';
@@ -86,6 +87,7 @@ const List<String> allGroups = <String>[
 class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
   final screens = [
+    News(),
     MyHomePage(
       title: 'kjhlkjsdf',
       pageController: pageController,
@@ -209,7 +211,7 @@ class MyApp extends StatelessWidget {
         ),
         home: Scaffold(
             appBar: AppBar(
-              title: Center(child: Text("New Urnik")),
+              title: Center(child: Text("FOV Calendar")),
             ),
             bottomNavigationBar: Obx(
               () => NavigationBar(
@@ -219,6 +221,8 @@ class MyApp extends StatelessWidget {
                 selectedIndex: controller.selectedIndex.value,
                 destinations: const [
                   NavigationDestination(
+                      icon: Icon(Icons.newspaper), label: "News"),
+                  NavigationDestination(
                       icon: Icon(Icons.calendar_month), label: "Calendar"),
                   NavigationDestination(
                       icon: Icon(Icons.settings), label: "Settings"),
@@ -226,7 +230,12 @@ class MyApp extends StatelessWidget {
               ),
             ),
             body:
-                Obx(() => controller.screens[controller.selectedIndex.value])),
+                // Obx(() => controller.screens[controller.selectedIndex.value])),
+            Obx(() => IndexedStack(
+              index: controller.selectedIndex.value,
+              children: controller.screens,
+            ))),
+
       ),
     );
   }

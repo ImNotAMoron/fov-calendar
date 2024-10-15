@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 import 'main.dart';
@@ -11,23 +12,27 @@ class Settings extends StatelessWidget {
     // final style = theme.textTheme.displayMedium!.copyWith(
     //   color: theme.colorScheme.onPrimary,
     // );
-    final style = theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w500);
+    final style =
+        theme.textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w500);
     var appState = context.watch<MyAppState>();
-    appState.setPageControllerUsed(false);
+    // SchedulerBinding.instance.addPostFrameCallback((_) {
+    //   if (appState.isPageControllerUsed) appState.setPageControllerUsed(false);
+    // });
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text("Group:", style: style),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           DropdownButtonExample(),
         ],
       ),
     );
   }
 }
-
 
 class DropdownButtonExample extends StatelessWidget {
   @override
@@ -43,10 +48,11 @@ class DropdownButtonExample extends StatelessWidget {
         width: MediaQuery.of(context).size.width - 32,
         menuStyle: MenuStyle(
           alignment: Alignment.bottomLeft,
-          maximumSize:
-          WidgetStatePropertyAll(Size.fromHeight(MediaQuery.of(context).size.height / 2)),
+          maximumSize: WidgetStatePropertyAll(
+              Size.fromHeight(MediaQuery.of(context).size.height / 2)),
         ),
-        dropdownMenuEntries: allGroups.map<DropdownMenuEntry<String>>((String value) {
+        dropdownMenuEntries:
+            allGroups.map<DropdownMenuEntry<String>>((String value) {
           return DropdownMenuEntry<String>(value: value, label: value);
         }).toList(),
       ),
