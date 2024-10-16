@@ -53,7 +53,7 @@ class EventList extends StatelessWidget {
         controller: pageController,
         itemBuilder: (context, index) {
           return Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
               child: CustomScrollView(
                 slivers: [
                   SliverFillRemaining(
@@ -84,10 +84,15 @@ class EventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     print("Rebuilding eventList");
     final theme = Theme.of(context);
+    final textColor = theme.colorScheme.onSecondaryContainer;
     final summaryStyle = theme.textTheme.bodyLarge!.copyWith(
         fontWeight: FontWeight.bold,
-        color: theme.colorScheme.onSecondaryContainer);
-    final infoStyle = theme.textTheme.bodyMedium!.copyWith();
+        color: textColor);
+    final infoStyle = theme.textTheme.bodyMedium!.copyWith(
+        color: textColor
+    );
+
+
     return Card(
         color: theme.colorScheme.secondaryContainer,
         child: SizedBox(
@@ -104,7 +109,7 @@ class EventCard extends StatelessWidget {
                 Text.rich(TextSpan(
                   style: infoStyle,
                   children: [
-                    const WidgetSpan(child: Icon(Icons.access_time_filled, size: 18,)),
+                    WidgetSpan(child: Icon(Icons.access_time_filled, size: 18, color: textColor)),
                     const WidgetSpan(child: SizedBox(width: 5)),
                     TextSpan(text: formatter.format(event.dt))
                   ],
@@ -115,7 +120,7 @@ class EventCard extends StatelessWidget {
                 Text.rich(TextSpan(
                   style: infoStyle,
                   children: [
-                    const WidgetSpan(child: Icon(Icons.location_on, size: 18,)),
+                    WidgetSpan(child: Icon(Icons.location_on, size: 18, color: textColor,)),
                     const WidgetSpan(child: SizedBox(width: 5)),
                     TextSpan(text: event.location)
                   ],
@@ -172,7 +177,7 @@ class EventPage extends StatelessWidget {
     if (dayDifference != 0 && widgets.isNotEmpty) {
       widgets.add(Center(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 0),
+          padding: const EdgeInsets.fromLTRB(0, 8.0, 0, 8.0),
           child: ElevatedButton(
               onPressed: () => {
                     pageController
@@ -197,7 +202,7 @@ class EventPage extends StatelessWidget {
 
     return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       Text(
-        "No class today",
+        "There is no class",
         style: nctStyle,
       ),
       const SizedBox(

@@ -33,7 +33,7 @@ class WeekPicker extends StatelessWidget {
           firstDate: DateTime(0),
           lastDate: appState.pickedDay.add(const Duration(days: 365)));
       if (picked != null && picked != appState.pickedDay) {
-        pageController.jumpToPage(pageController.page!.toInt() + picked.difference(appState.pickedDay).inDays);
+        pageController.jumpToPage(pageController.page!.toInt() + picked.difference(appState.pickedDay).inDays + 1);
       }
     }
 
@@ -67,7 +67,7 @@ class WeekPicker extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(20.0, 12.0, 20.0, 12.0),
             child: Container(
               alignment: Alignment.center,
-              width: 130,
+              width: 150,
               child: InkWell(
                 onTap: () {
                   openDatePicker();

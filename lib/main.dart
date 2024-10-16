@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
@@ -10,9 +11,12 @@ import 'package:urnik/eventList.dart';
 import 'package:urnik/news.dart';
 import 'package:urnik/parser.dart';
 import 'package:urnik/settings.dart';
+import 'package:urnik/theme.dart';
 import 'package:urnik/weekPicker.dart';
 import 'package:flutter/material.dart';
 import 'package:localstore/localstore.dart';
+
+import 'firebase_options.dart';
 
 final PageController pageController = PageController(initialPage: 4000);
 
@@ -85,7 +89,7 @@ const List<String> allGroups = <String>[
 ];
 
 class NavigationController extends GetxController {
-  final Rx<int> selectedIndex = 0.obs;
+  final Rx<int> selectedIndex = 1.obs;
   final screens = [
     News(),
     MyHomePage(
@@ -97,8 +101,12 @@ class NavigationController extends GetxController {
   final areEventsLoaded = false;
 }
 
-void main() {
+void main() async {
+
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -197,7 +205,7 @@ class MyAppState extends ChangeNotifier {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  final MaterialTheme materialTheme = const MaterialTheme(TextTheme());
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
@@ -205,10 +213,7 @@ class MyApp extends StatelessWidget {
       create: (context) => MyAppState(),
       child: MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
+        theme: materialTheme.dark(),
         home: Scaffold(
             appBar: AppBar(
               title: Center(child: Text("FOV Calendar")),

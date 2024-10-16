@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "738276536371",
+    "project_id": "fov-calendar-3bc2d",
+    "storage_bucket": "fov-calendar-3bc2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:738276536371:android:4ec5c74409c68d9058f346",
+        "android_client_info": {
+          "package_name": "com.fedorvladysh.urnik"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVHa9C04j98qNrlHVS7vJUYCucYwUDR_4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
